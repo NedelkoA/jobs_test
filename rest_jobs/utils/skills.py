@@ -1,4 +1,3 @@
-from .data_api import get_skills
 from ..models import Skill
 
 
@@ -21,12 +20,9 @@ def skill_items(skills_data, job):
     ]
 
 
-def save_skills(job):
-    api_skills = get_skills(job.title_id)
-    if api_skills is not None:
-        skill_items(api_skills, job)
-        skills = [
-            Skill(**item.__dict__)
-            for item in skill_items
-        ]
-        Skill.objects.bulk_create(skills)
+def save_skills(items_list):
+    skills = [
+        Skill(**item.__dict__)
+        for item in items_list
+    ]
+    Skill.objects.bulk_create(skills)
